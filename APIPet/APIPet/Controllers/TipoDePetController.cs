@@ -33,8 +33,9 @@ namespace APIPet.Controllers
 
         // POST api/<TipoDePetController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public TipoDePet Post([FromBody] TipoDePet pet)
         {
+            return tipo.Cadastrar(pet);
         }
 
         // PUT api/<TipoDePetController>/5
@@ -47,6 +48,7 @@ namespace APIPet.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            tipo.Excluir(id);
         }
     }
 }

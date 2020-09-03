@@ -44,12 +44,29 @@ namespace APIPet.Repositories
 
         public TipoDePet Cadastrar(TipoDePet tipo)
         {
-            throw new NotImplementedException();
+            cmd.Connection = conexao.Conectar();
+
+            cmd.CommandText = "INSERT INTO TipoDePet(Descricao)" +
+                "VALUES" +
+                "(@descricao)";
+            cmd.Parameters.AddWithValue("@descricao", tipo.Descricao);
+
+            cmd.ExecuteNonQuery();
+            conexao.Desconectar();
+
+            return tipo;
         }
 
         public void Excluir(int id)
         {
-            throw new NotImplementedException();
+            cmd.Connection = conexao.Conectar();
+
+            cmd.CommandText = "DELETE FROM TipoDePet WHERE IdTipoDePet = @id";
+            cmd.Parameters.AddWithValue("@id", id);
+
+            cmd.ExecuteNonQuery();
+
+            conexao.Desconectar();
         }
 
         public List<TipoDePet> ListarTodos()
