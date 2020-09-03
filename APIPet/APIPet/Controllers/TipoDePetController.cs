@@ -15,20 +15,20 @@ namespace APIPet.Controllers
     public class TipoDePetController : ControllerBase
     {
 
-        TipoDePetRepository tipo_repo = new TipoDePetRepository();
+        TipoDePetRepository tipo = new TipoDePetRepository();
 
         // GET: api/<TipoDePetController>
         [HttpGet]
         public List<TipoDePet> Get()
         {
-            return tipo_repo.ListarTodos(); 
+            return tipo.ListarTodos(); 
         }
 
         // GET api/<TipoDePetController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public TipoDePet Get(int id)
         {
-            return "value";
+            return tipo.BuscarPorID(id);
         }
 
         // POST api/<TipoDePetController>

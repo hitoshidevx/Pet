@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Cryptography.Xml;
 using System.Threading.Tasks;
 
 namespace APIPet.Repositories
@@ -22,7 +23,23 @@ namespace APIPet.Repositories
 
         public TipoDePet BuscarPorID(int id)
         {
-            throw new NotImplementedException();
+            cmd.Connection = conexao.Conectar();
+            cmd.CommandText = "SELECT * FROM TipoDePet WHERE IdTipoDePet = @id";
+
+            cmd.Parameters.AddWithValue("@id", id);
+
+            SqlDataReader dados = cmd.ExecuteReader();
+
+            TipoDePet tipo = new TipoDePet();
+
+            while(dados.Read())
+            {
+                tipo.IdTipoDePet = Convert.ToInt32(dados.GetValue(0));
+                tipo.Descricao = dados.GetValue(1).ToString();
+            }
+
+            conexao.Desconectar();
+            return tipo;
         }
 
         public TipoDePet Cadastrar(TipoDePet tipo)
