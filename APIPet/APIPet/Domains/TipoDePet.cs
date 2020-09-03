@@ -5,12 +5,11 @@ using System.Threading.Tasks;
 
 namespace APIPet.Domains
 {
-    public class Raca
+    public class TipoDePet
     {
 
-        public int IdRaca { get; set; }
-        public string Descricao { get; set; }
         public int IdTipoDePet { get; set; }
+        public string Descricao { get; set; }
 
     }
 }
