@@ -18,7 +18,18 @@ namespace APIPet.Repositories
 
         public TipoDePet Alterar(int id, TipoDePet tipo)
         {
-            throw new NotImplementedException();
+            cmd.Connection  = conexao.Conectar();
+            cmd.CommandText = "UPDATE TipoDePet SET " +
+                "Descricao = @descricao WHERE IdTipoDePet = @id";
+
+            cmd.Parameters.AddWithValue("@id", id);
+
+            cmd.Parameters.AddWithValue("@descricao", tipo.Descricao);
+
+            cmd.ExecuteNonQuery();
+
+            conexao.Desconectar();
+            return tipo;
         }
 
         public TipoDePet BuscarPorID(int id)
