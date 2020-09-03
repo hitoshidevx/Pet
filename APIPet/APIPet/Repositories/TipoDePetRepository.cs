@@ -1,7 +1,9 @@
-﻿using APIPet.Domains;
+﻿using APIPet.Context;
+using APIPet.Domains;
 using APIPet.Interface;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,6 +11,10 @@ namespace APIPet.Repositories
 {
     public class TipoDePetRepository : ITipoDePet
     {
+
+        PetShopContext conexao = new PetShopContext();
+        SqlCommand cmd         = new SqlCommand();
+
         public TipoDePet Alterar(int id, TipoDePet tipo)
         {
             throw new NotImplementedException();
@@ -31,7 +37,29 @@ namespace APIPet.Repositories
 
         public List<TipoDePet> ListarTodos()
         {
-            throw new NotImplementedException();
+            cmd.Connection = conexao.Conectar();
+            cmd.CommandText = "SELECT * FROM TipoDePet";
+
+            SqlDataReader dados = cmd.ExecuteReader();
+
+            List<TipoDePet> tpsdepet = new List<TipoDePet>();
+
+            while(dados.Read())
+            {
+
+                tpsdepet.Add(
+                    new TipoDePet()
+                    {
+                        IdTipoDePet = Convert.ToInt32(dados.GetValue(0)),
+                        Descricao = dados.GetValue(1).ToString()
+                    }
+
+                    );
+
+            }
+
+            conexao.Desconectar();
+            return tpsdepet;
         }
     }
 }
