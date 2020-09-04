@@ -17,7 +17,20 @@ namespace APIPet.Repositories
 
         public Raca Alterar(int id, Raca raca)
         {
-            throw new NotImplementedException();
+            cmd.Connection   = conexao.Conectar();
+            cmd.CommandText  = "UPDATE Raca SET " +
+                "Descricao   = @descricao, " +
+                "IdTipoDePet = @idtipodepet WHERE IdRaca = @id";
+
+            cmd.Parameters.AddWithValue("@id", id);
+
+            cmd.Parameters.AddWithValue("@descricao", raca.Descricao);
+            cmd.Parameters.AddWithValue("@idtipodepet", raca.IdTipoDePet);
+
+            cmd.ExecuteNonQuery();
+
+            conexao.Desconectar();
+            return raca;
         }
 
         public Raca BuscarPorID(int id)
@@ -60,7 +73,14 @@ namespace APIPet.Repositories
 
         public void Excluir(int id)
         {
-            throw new NotImplementedException();
+            cmd.Connection = conexao.Conectar();
+
+            cmd.CommandText = "DELETE FROM Raca WHERE IdRaca = @id";
+            cmd.Parameters.AddWithValue("@id", id);
+
+            cmd.ExecuteNonQuery();
+
+            conexao.Desconectar();
         }
 
         public List<Raca> ListarTodos()
