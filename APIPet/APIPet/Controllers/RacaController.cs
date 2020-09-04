@@ -31,8 +31,9 @@ namespace APIPet.Controllers
 
         // POST api/<RacaController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public Raca Post([FromBody] Raca pet)
         {
+            return raca.Cadastrar(pet);
         }
 
         // PUT api/<RacaController>/5

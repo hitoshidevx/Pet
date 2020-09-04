@@ -44,7 +44,18 @@ namespace APIPet.Repositories
 
         public Raca Cadastrar(Raca raca)
         {
-            throw new NotImplementedException();
+            cmd.Connection = conexao.Conectar();
+
+            cmd.CommandText = "INSERT INTO Raca(Descricao, IdTipoDePet)" +
+                "VALUES" +
+                "(@descricao, @idtipodepet)";
+            cmd.Parameters.AddWithValue("@descricao", raca.Descricao);
+            cmd.Parameters.AddWithValue("@idtipodepet", raca.IdTipoDePet);
+
+            cmd.ExecuteNonQuery();
+            conexao.Desconectar();
+
+            return raca;
         }
 
         public void Excluir(int id)
